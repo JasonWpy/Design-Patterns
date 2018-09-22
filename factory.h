@@ -9,7 +9,7 @@
  * 添加一个新的工厂，继承abst_factory, create 新的对象
  */
 
-    class fruit
+class fruit
 {
 public:
     virtual std::string say_name() = 0;
@@ -56,4 +56,5 @@ public:
         return new apple();
     }
 };
+
 #endif //DESIGN_PATTERNS_FACTORY_H
