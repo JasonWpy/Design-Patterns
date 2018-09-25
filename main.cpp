@@ -5,6 +5,10 @@
 #include "simple_factory.h"
 #include "factory.h"
 #include "abstract_factory.h"
+#include "builder.h"
+
+
+
 TEST(singleton, same_object)
 {
     EXPECT_EQ(lazy_singleton::get_instance(), lazy_singleton::get_instance());
@@ -58,6 +62,29 @@ TEST(factory, abstract_factory)
     delete abs_fac;
 
 }
+
+TEST(builder, test_validity)
+{
+    director dirt;
+    builder *bud = NULL;
+    house *hos = NULL;
+    bud = new villa_builder();
+    dirt.set_builder(bud);
+    dirt.construct();
+    hos = bud->get_house();
+    EXPECT_STREQ(hos->getDoor().c_str(), "villa_door");
+    delete hos;
+    delete bud;
+
+    bud = new flat_builder();
+    dirt.set_builder(bud);
+    dirt.construct();
+    hos = bud->get_house();
+    EXPECT_STREQ(hos->getDoor().c_str(), "flat_door");
+    delete hos;
+    delete bud;
+}
+
 
 int main(int argc, char *argv[])
 {
