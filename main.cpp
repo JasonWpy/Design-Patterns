@@ -6,7 +6,7 @@
 #include "factory.h"
 #include "abstract_factory.h"
 #include "builder.h"
-
+#include "prototype.h"
 
 
 TEST(singleton, same_object)
@@ -23,11 +23,11 @@ TEST(simple_factory, test_validity)
     factory *fac = new factory();
 
     simple_fruit *fru = fac->create("simple_banana");
-    EXPECT_NE(fru, (simple_fruit *)NULL);
+    EXPECT_NE(fru, (simple_fruit *) NULL);
     fru->get_fruit();
 
     simple_fruit *fru_bad = fac->create("bad");
-    EXPECT_EQ(fru_bad, (simple_fruit *)NULL);
+    EXPECT_EQ(fru_bad, (simple_fruit *) NULL);
 
     delete fru;
 
@@ -85,6 +85,15 @@ TEST(builder, test_validity)
     delete bud;
 }
 
+TEST(prototype, test_validity)
+{
+    java_programmer java_p1("jason", 30);
+    java_p1.set_resume("I am java");
+    person *p2 = java_p1.clone();  //对象具有自我复制功能 注意深拷贝和浅拷贝问题
+    p2->print_out();
+
+    delete p2;
+}
 
 int main(int argc, char *argv[])
 {
