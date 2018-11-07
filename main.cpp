@@ -7,6 +7,8 @@
 #include "abstract_factory.h"
 #include "builder.h"
 #include "prototype.h"
+#include "proxy.h"
+#include "bridge.h"
 
 
 TEST(singleton, same_object)
@@ -93,6 +95,24 @@ TEST(prototype, test_validity)
     p2->print_out();
 
     delete p2;
+}
+
+TEST(proxy, test_validity)
+{
+    subject *s = new dangdang_proxy();
+    EXPECT_STREQ(s->sell_book().c_str(), "sell_book");
+    delete s;
+}
+
+TEST(bridge, test_validity)
+{
+    engine *en = new e4400cc();
+    bmw6 *b6 = new bmw6(en);
+    EXPECT_STREQ(b6->install_engine().c_str(), "install_e4400cc");
+
+    delete b6;
+    delete en;
+
 }
 
 int main(int argc, char *argv[])
